@@ -12,8 +12,6 @@ const initialState = {
 };
 
 function reducer(state = initialState, action) {
-  console.log('reducer', state, action);
-  
   if( action.type === 'SET' ){
     return {
       risk: action.risk

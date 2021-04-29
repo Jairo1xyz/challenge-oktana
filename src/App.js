@@ -9,14 +9,17 @@ class App extends Component {
   render() {
     return <div style = {styles} >
       <Router>
-        <Routes />
+        <Routes/>
       </Router>
     </div>
   }
 }
 
 const styles = {
-  padding: '20px'
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  alignItems: 'center'
 }
 
 export default App;
