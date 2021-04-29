@@ -4,9 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+const initialState = {
+  risk: 0
+};
+
+function reducer(state = initialState, action) {
+  console.log('reducer', state, action);
+  
+  if( action.type === 'SET' ){
+    return {
+      risk: action.risk
+    };
+  } else {
+    return state;
+  }
+}
+
+const store = createStore(reducer);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
