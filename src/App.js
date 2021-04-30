@@ -4,7 +4,14 @@ import './App.css';
 
 import Routes from './extras/Routes';
 
+import { connect } from 'react-redux';
+
+import { fetchRiskLevels } from "./extras/riskLevelsActions";
+
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchRiskLevels());
+  }
 
   render() {
     return <div style = {styles} >
@@ -15,6 +22,16 @@ class App extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+      risk: state.risk,
+      loading: state.loading,
+      showChart: state.showChart,
+      error: state.error,
+      data: state.data
+  };
+}
+
 const styles = {
   display: 'flex',
   justifyContent: 'center',
@@ -22,5 +39,5 @@ const styles = {
   alignItems: 'center'
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
 
