@@ -3,15 +3,95 @@ import 'foundation-sites/dist/css/foundation.min.css';
 import { Button, Colors } from 'react-foundation';
 import history from '../extras/history';
 
+import { connect } from 'react-redux';
+
+import CalculatorTable from './CalculatorTable';
+
 class Calculator extends Component {
 
     render() {
 
-        return <div> 
-            <h1> This Is Calculator</h1>
-            <Button color={Colors.SUCCESS} onClick={() => history.push('/')}>Go to Home</Button>
-        </div>
+        const risk = this.props.risk;
+        if( risk === 0 ){
+            return <div>
+                <div style = {backButtonStyles}>
+                    <Button 
+                    color={Colors.SUCCESS} 
+                    onClick={() => history.push('/')}>
+                        Go back to set a risk level
+                    </Button>
+                </div>
+                <div style = {labelStyles}>Risk level not setted. Set a risk level first.</div>
+            </div> 
+        }
+        else{
+            const level = risk === 0 ? null : this.props.data[risk-1];
+
+            return <div> 
+                <div style = {backButtonStyles}>
+                    <Button 
+                    color={Colors.SUCCESS} 
+                    onClick={() => history.push('/')}>
+                        Go back
+                    </Button>
+                </div>
+                <div style = {labelStyles}>Personalized Portfolio</div>
+                <div style = {subLabelStyles}>Risk Level { risk }</div>
+                <div style = {basicStyles}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bonds %</th>
+                                <th>Large Cap %</th>
+                                <th>Mid Cap %</th>
+                                <th>Foreign %</th>
+                                <th>Small Cap %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{level.bonds}</td>
+                                <td>{level.largeCap}</td>
+                                <td>{level.midCap}</td>
+                                <td>{level.foreign}</td>
+                                <td>{level.smallCap}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style = {subLabelStyles}>Please Enter Your Current Portfolio</div>
+                <CalculatorTable/>
+            </div>
+        }
     }
 }
 
-export default Calculator;
+function mapStateToProps(state) {
+    return {
+        ...state
+    };
+}
+
+const backButtonStyles = {
+    display: 'flex',
+    justifyContent: 'right'
+}
+
+const labelStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: '28px',
+    fontWeight: 'bold'
+}
+
+const subLabelStyles = {
+    fontSize: '22px',
+    fontWeight: 'bold'
+}
+
+const basicStyles = {
+    display: 'flex',
+    justifyContent: 'center'
+}
+
+export default connect(mapStateToProps)(Calculator);

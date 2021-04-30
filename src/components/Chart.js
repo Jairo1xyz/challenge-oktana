@@ -39,11 +39,7 @@ class Chart extends Component {
 
 function mapStateToProps(state) {
     return {
-        risk: state.risk,
-        loading: state.loading,
-        showChart: state.showChart,
-        error: state.error,
-        data: state.data
+        ...state
     };
 }
 

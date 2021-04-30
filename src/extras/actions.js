@@ -1,0 +1,9 @@
+export const SET = "SET";
+export const TOGGLE = "TOGGLE";
+export const SET_BONDS = "SET_BONDS";
+export const SET_LARGE_CAP = "SET_LARGE_CAP";
+export const SET_MID_CAP = "SET_MID_CAP";
+export const SET_FOREIGN = "SET_FOREIGN";
+export const SET_SMALL_CAP = "SET_SMALL_CAP";
+export const CLEAR_VALUES = "CLEAR_VALUES";
+export const REBALANCE = "REBALANCE";

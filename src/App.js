@@ -10,7 +10,11 @@ import { fetchRiskLevels } from "./extras/riskLevelsActions";
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchRiskLevels());
+    // This code is for testing Loading Display message
+    //setTimeout(() => {
+      //console.log("Test Time finished");
+      this.props.dispatch(fetchRiskLevels());
+    //}, 5000);
   }
 
   render() {
@@ -24,11 +28,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-      risk: state.risk,
-      loading: state.loading,
-      showChart: state.showChart,
-      error: state.error,
-      data: state.data
+    ...state
   };
 }
 

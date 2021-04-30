@@ -6,6 +6,7 @@ import history from '../extras/history';
 import { connect } from 'react-redux';
 
 import Container from "./Container";
+import { SET } from '../extras/actions';
 
 class Home extends Component {
 
@@ -19,14 +20,14 @@ class Home extends Component {
                 color={Colors.SECONDARY} 
                 isHollow={ this.props.risk === i ? false : true } 
                 key={i} 
-                onClick={() => this.props.dispatch({ type: "SET", risk: i })}
+                onClick={() => this.props.dispatch({ type: SET, risk: i })}
                 style = {buttonStyles}>
                     {i}
                 </Button>
             );
         }
 
-        return <div> 
+        return this.props.loading ? <div style={labelStyles}>Loading...</div> : ( this.props.error === null ? <div> 
             <div style = {labelStyles}>Please Select A Risk Level For Your Investment Portfolio</div>
             
             <div style = {riskLevelsStyles}>
@@ -42,28 +43,21 @@ class Home extends Component {
                 <Button 
                 color={Colors.SUCCESS} 
                 onClick={() => history.push('/Calculator')}
-                isDisabled={ this.props.risk === 0 && this.props.error === null ? true : false }
+                isDisabled={ this.props.risk === 0 ? true : false }
                 style = {buttonStyles}>
                     Continue
                 </Button>
             </div>
 
-            { this.props.loading ? <div style={labelStyles}>Loading...</div> : 
-            (this.props.error === null ? <Container/> : 
-            <div style={labelStyles}>An error ocurred while loading risk levels data</div> ) }
+            <Container/>
 
-            
-        </div>
+        </div> : <div style={labelStyles}>An error ocurred while loading risk levels data. { this.props.error }</div> )
     }
 }
 
 function mapStateToProps(state) {
     return {
-        risk: state.risk,
-        loading: state.loading,
-        showChart: state.showChart,
-        error: state.error,
-        data: state.data
+        ...state
     };
 }
 
