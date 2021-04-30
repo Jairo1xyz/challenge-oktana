@@ -14,24 +14,15 @@ export const fetchLevelsFailure = error => ({
 export function fetchRiskLevels(){
     return async dispatch => {
         try{
-            console.log("Bien 1");
-            /*const res = await fetch('http://jsonplaceholder.typicode.com/posts', {
-                headers : { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-              });*/
-            const res = await fetch('./data.json', {
+            const res = await fetch('/data.json', {
               headers : { 
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
               }
             });
-            console.log("Bien 2", res);
             const resJSON =  await res.json();
-            console.log("Bien 3");
             dispatch(fetchLevelsSuccess(resJSON));
-            console.log("Bien 4");
+            
             return resJSON;
         } catch (error){
             dispatch(fetchLevelsFailure("Error: "+error));
