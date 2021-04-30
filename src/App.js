@@ -4,20 +4,40 @@ import './App.css';
 
 import Routes from './extras/Routes';
 
+import { connect } from 'react-redux';
+
+import { fetchRiskLevels } from "./extras/riskLevelsActions";
+
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchRiskLevels());
+  }
 
   render() {
     return <div style = {styles} >
       <Router>
-        <Routes />
+        <Routes/>
       </Router>
     </div>
   }
 }
 
-const styles = {
-  padding: '20px'
+function mapStateToProps(state) {
+  return {
+      risk: state.risk,
+      loading: state.loading,
+      showChart: state.showChart,
+      error: state.error,
+      data: state.data
+  };
 }
 
-export default App;
+const styles = {
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
+
+export default connect(mapStateToProps)(App);
 

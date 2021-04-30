@@ -4,26 +4,52 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
+import { FETCH_LEVELS_SUCCESS, FETCH_LEVELS_FAILURE } from './extras/riskLevelsActions';
+
 const initialState = {
-  risk: 0
+  risk: 0,
+  loading: true,
+  showChart: true,
+  error: null,
+  data: []
 };
 
 function reducer(state = initialState, action) {
-  console.log('reducer', state, action);
-  
-  if( action.type === 'SET' ){
-    return {
-      risk: action.risk
-    };
-  } else {
-    return state;
+  console.log("reducer", state, action);
+  switch(action.type) {
+    case 'SET':
+      return {
+        ...state,
+        risk: action.risk,
+      };
+    case 'TOGGLE':
+      return {
+        ...state,
+        showChart: !state.showChart
+      };
+    case FETCH_LEVELS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.result
+      };
+    case FETCH_LEVELS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.result
+      };
+    
+    default:
+      return state;
   }
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
