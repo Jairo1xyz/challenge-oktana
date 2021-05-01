@@ -42,8 +42,11 @@ class Home extends Component {
             <div style = {basicStyles}>
                 <Button 
                 color={Colors.SUCCESS} 
-                onClick={() => history.push('/Calculator')}
                 isDisabled={ this.props.risk === 0 ? true : false }
+                onClick={() => {
+                    if(this.props.risk !== 0) 
+                        history.push('/Calculator')
+                }}
                 style = {buttonStyles}>
                     Continue
                 </Button>

@@ -41,20 +41,20 @@ class Calculator extends Component {
                     <table>
                         <thead>
                             <tr>
-                                <th>Bonds %</th>
-                                <th>Large Cap %</th>
-                                <th>Mid Cap %</th>
-                                <th>Foreign %</th>
-                                <th>Small Cap %</th>
+                                <th>Bonds</th>
+                                <th>Large Cap</th>
+                                <th>Mid Cap</th>
+                                <th>Foreign</th>
+                                <th>Small Cap</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{level.bonds}</td>
-                                <td>{level.largeCap}</td>
-                                <td>{level.midCap}</td>
-                                <td>{level.foreign}</td>
-                                <td>{level.smallCap}</td>
+                                <td>{level.bonds}%</td>
+                                <td>{level.largeCap}%</td>
+                                <td>{level.midCap}%</td>
+                                <td>{level.foreign}%</td>
+                                <td>{level.smallCap}%</td>
                             </tr>
                         </tbody>
                     </table>

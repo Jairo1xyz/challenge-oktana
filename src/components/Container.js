@@ -16,8 +16,12 @@ class Container extends Component {
             { this.props.showChart ? <Chart/> : <Donut/> }
             <Button 
             color={Colors.PRIMARY} 
-            onClick={() => this.props.dispatch({ type: TOGGLE })}
-            isDisabled={ this.props.risk === 0 ? true : false }>
+            isDisabled={ this.props.risk === 0 ? true : false }
+            onClick={ () => {
+                if(this.props.risk !== 0) 
+                    this.props.dispatch({ type: TOGGLE })
+            }
+            }>
                 { this.props.showChart ? 'See Donut Chart' : 'See Table Chart' }
             </Button>
         </div>

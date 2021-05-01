@@ -17,12 +17,32 @@ const initialState = {
   showChart: true,
   error: null,
   data: [],
-  bonds: '',
-  largeCap: '',
-  midCap: '',
-  foreign: '',
-  smallCap: '',
-  recommended: '',
+  bonds: {
+    current: '',
+    difference: '',
+    new: ''
+  },
+  largeCap: {
+    current: '',
+    difference: '',
+    new: ''
+  },
+  midCap: {
+    current: '',
+    difference: '',
+    new: ''
+  },
+  foreign: {
+    current: '',
+    difference: '',
+    new: ''
+  },
+  smallCap: {
+    current: '',
+    difference: '',
+    new: ''
+  },
+  recommended: ''
 };
 
 function reducer(state = initialState, action) {
@@ -53,38 +73,103 @@ function reducer(state = initialState, action) {
     case SET_BONDS:
       return {
         ...state,
-        bonds: action.value
+        bonds: {
+          ...state.bonds,
+          current: action.value
+        }
       };
     case SET_LARGE_CAP:
       return {
         ...state,
-        largeCap: action.value
+        largeCap: {
+          ...state.largeCap,
+          current: action.value
+        }
       };
     case SET_MID_CAP:
       return {
         ...state,
-        midCap: action.value
+        midCap: {
+          ...state.midCap,
+          current: action.value
+        }
       };
     case SET_FOREIGN:
       return {
         ...state,
-        foreign: action.value
+        foreign: {
+          ...state.foreign,
+          current: action.value
+        }
       };
     case SET_SMALL_CAP:
       return {
         ...state,
-        smallCap: action.value
+        smallCap: {
+          ...state.smallCap,
+          current: action.value
+        }
+      };
+    case REBALANCE:
+      return {
+        ...state,
+        bonds: {
+          ...state.bonds,
+          difference: action.bonds.difference,
+          new: action.bonds.new
+        },
+        largeCap: {
+          ...state.largeCap,
+          difference: action.largeCap.difference,
+          new: action.largeCap.new
+        },
+        midCap: {
+          ...state.midCap,
+          difference: action.midCap.difference,
+          new: action.midCap.new
+        },
+        foreign: {
+          ...state.foreign,
+          difference: action.foreign.difference,
+          new: action.foreign.new
+        },
+        smallCap: {
+          ...state.smallCap,
+          difference: action.smallCap.difference,
+          new: action.smallCap.new
+        },
+        recommended: action.recommended
       };
     case CLEAR_VALUES:
       return {
         ...state,
-        bonds: '',
-        largeCap: '',
-        midCap: '',
-        foreign: '',
-        smallCap: '',
+        bonds: {
+          current: '',
+          difference: '',
+          new: ''
+        },
+        largeCap: {
+          current: '',
+          difference: '',
+          new: ''
+        },
+        midCap: {
+          current: '',
+          difference: '',
+          new: ''
+        },
+        foreign: {
+          current: '',
+          difference: '',
+          new: ''
+        },
+        smallCap: {
+          current: '',
+          difference: '',
+          new: ''
+        },
+        recommended: ''
       };
-      
     default:
       return state;
   }
