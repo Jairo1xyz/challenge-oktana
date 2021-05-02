@@ -142,7 +142,9 @@ class CalculatorTable extends Component {
                         left = Math.abs(low) - high;
                         j--;
                     } else{
-                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        if(high != 0){
+                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        }
                         i++;
                         j--;
                     }
@@ -258,6 +260,12 @@ class CalculatorTable extends Component {
                 </Button>
                 <Button 
                 color={Colors.PRIMARY} 
+                isDisabled={ (
+                    this.props.bonds.current >= 0 && this.props.bonds.current !== '' &&
+                    this.props.largeCap.current >= 0 && this.props.largeCap.current !== '' &&
+                    this.props.midCap.current >= 0 && this.props.midCap.current !== '' &&
+                    this.props.foreign.current >= 0 && this.props.foreign.current !== '' &&
+                    this.props.smallCap.current >= 0 && this.props.smallCap.current !== '' ) ? false : true }
                 onClick={this.rebalance} >
                     Rebalance
                 </Button>
@@ -275,7 +283,7 @@ class CalculatorTable extends Component {
                     <tbody>
                         <tr>
                             <td>Bonds $:</td>
-                            <td><input type="number" value={this.props.bonds.current} 
+                            <td><input type="number" value={this.props.bonds.current} min={0}
                             onChange={(e) => this.props.dispatch({ type: SET_BONDS, value: e.target.value })}/></td>
                             <td><input type="number" value={this.props.bonds.difference} disabled
                             style={ this.props.bonds.difference >= 0 ? positive : negative }/></td>
@@ -284,7 +292,7 @@ class CalculatorTable extends Component {
                         </tr>
                         <tr>
                             <td>Large Cap $:</td>
-                            <td><input type="number" value={this.props.largeCap.current} 
+                            <td><input type="number" value={this.props.largeCap.current} min={0}
                             onChange={(e) => this.props.dispatch({ type: SET_LARGE_CAP, value: e.target.value  })}/></td>
                             <td><input type="number" value={this.props.largeCap.difference} disabled
                             style={ this.props.largeCap.difference >= 0 ? positive : negative }/></td>
@@ -292,7 +300,7 @@ class CalculatorTable extends Component {
                         </tr>
                         <tr>
                             <td>Mid Cap $:</td>
-                            <td><input type="number" value={this.props.midCap.current} 
+                            <td><input type="number" value={this.props.midCap.current} min={0}
                             onChange={(e) => this.props.dispatch({ type: SET_MID_CAP, value: e.target.value  })}/></td>
                             <td><input type="number" value={this.props.midCap.difference} disabled
                             style={ this.props.midCap.difference >= 0 ? positive : negative }/></td>
@@ -300,7 +308,7 @@ class CalculatorTable extends Component {
                         </tr>
                         <tr>
                             <td>Foreign $:</td>
-                            <td><input type="number" value={this.props.foreign.current} 
+                            <td><input type="number" value={this.props.foreign.current} min={0}
                             onChange={(e) => this.props.dispatch({ type: SET_FOREIGN, value: e.target.value  })}/></td>
                             <td><input type="number" value={this.props.foreign.difference} disabled
                             style={ this.props.foreign.difference >= 0 ? positive : negative }/></td>
@@ -308,7 +316,7 @@ class CalculatorTable extends Component {
                         </tr>
                         <tr>
                             <td>Small Cap $:</td>
-                            <td><input type="number" value={this.props.smallCap.current} 
+                            <td><input type="number" value={this.props.smallCap.current} min={0}
                             onChange={(e) => this.props.dispatch({ type: SET_SMALL_CAP, value: e.target.value  })}/></td>
                             <td><input type="number" value={this.props.smallCap.difference} disabled 
                             style={ this.props.smallCap.difference >= 0 ? positive : negative }/></td>
