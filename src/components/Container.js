@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import Chart from "./Chart";
 import Donut from "./Donut";
+import { TOGGLE } from '../extras/actions';
 
 class Container extends Component {
 
@@ -15,8 +16,12 @@ class Container extends Component {
             { this.props.showChart ? <Chart/> : <Donut/> }
             <Button 
             color={Colors.PRIMARY} 
-            onClick={() => this.props.dispatch({ type: "TOGGLE" })}
-            isDisabled={ this.props.risk === 0 ? true : false }>
+            isDisabled={ this.props.risk === 0 ? true : false }
+            onClick={ () => {
+                if(this.props.risk !== 0) 
+                    this.props.dispatch({ type: TOGGLE })
+            }
+            }>
                 { this.props.showChart ? 'See Donut Chart' : 'See Table Chart' }
             </Button>
         </div>
@@ -25,11 +30,7 @@ class Container extends Component {
 
 function mapStateToProps(state) {
     return {
-        risk: state.risk,
-        loading: state.loading,
-        showChart: state.showChart,
-        error: state.error,
-        data: state.data
+        ...state
     };
 }
 

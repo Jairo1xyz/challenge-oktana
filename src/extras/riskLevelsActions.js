@@ -14,18 +14,21 @@ export const fetchLevelsFailure = error => ({
 export function fetchRiskLevels(){
     return async dispatch => {
         try{
-            const res = await fetch('/data.json', {
-              headers : { 
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-              }
-            });
-            const resJSON =  await res.json();
-            dispatch(fetchLevelsSuccess(resJSON));
-            
-            return resJSON;
-        } catch (error){
-            dispatch(fetchLevelsFailure("Error: "+error));
+          // This code is for testing Error Display message
+          //throw new Error('Whoops!');
+
+          const res = await fetch('/data.json', {
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+          });
+          const resJSON =  await res.json();
+          dispatch(fetchLevelsSuccess(resJSON));
+          
+          return resJSON;
+        } catch (e){
+            dispatch(fetchLevelsFailure(e.name + ': ' + e.message));
         }
     }
 }
