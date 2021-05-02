@@ -9,7 +9,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import { FETCH_LEVELS_SUCCESS, FETCH_LEVELS_FAILURE } from './extras/riskLevelsActions';
-import { SET, TOGGLE, SET_BONDS, SET_LARGE_CAP, SET_MID_CAP, SET_FOREIGN, SET_SMALL_CAP, REBALANCE, CLEAR_VALUES } from './extras/actions';
+import { SET, TOGGLE, SET_BONDS, SET_LARGE_CAP, SET_MID_CAP, SET_FOREIGN, SET_SMALL_CAP, 
+  REBALANCE, CLEAR_VALUES, CLEAR_REBALANCED_VALUES } from './extras/actions';
 
 const initialState = {
   risk: 0,
@@ -165,6 +166,36 @@ function reducer(state = initialState, action) {
         },
         smallCap: {
           current: '',
+          difference: '',
+          new: ''
+        },
+        recommended: ''
+      };
+    case CLEAR_REBALANCED_VALUES:
+      return {
+        ...state,
+        bonds: {
+          ...state.bonds,
+          difference: '',
+          new: ''
+        },
+        largeCap: {
+          ...state.largeCap,
+          difference: '',
+          new: ''
+        },
+        midCap: {
+          ...state.midCap,
+          difference: '',
+          new: ''
+        },
+        foreign: {
+          ...state.foreign,
+          difference: '',
+          new: ''
+        },
+        smallCap: {
+          ...state.smallCap,
           difference: '',
           new: ''
         },

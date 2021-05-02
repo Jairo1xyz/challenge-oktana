@@ -8,6 +8,183 @@ import { SET_BONDS, SET_LARGE_CAP, SET_MID_CAP, SET_FOREIGN, SET_SMALL_CAP, REBA
 
 class CalculatorTable extends Component {
 
+    recordTransfers = (diffs) => {
+        let recommended = '', left = 0.0, missing = 0.0;
+        const amountMatch = [], diffsLength = diffs.length;
+
+        for(let i = 0; diffs[i].value < 0 && i < diffsLength - 1; i++){
+            const low = parseFloat(diffs[i].value);
+            for(let j = diffsLength - 1; diffs[j].value > 0 && j > 0; j--){
+                const high = parseFloat(diffs[j].value);
+                if(Math.abs(low) == high ){
+                    let prevMatched = false;
+                    for(let k = 0; k < amountMatch.length; k++){
+                        if(i == amountMatch[k].fromIndex || j == amountMatch[k].toIndex){
+                            prevMatched = true;
+                        }
+                    }
+                    if(!prevMatched){
+                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        amountMatch.push({ from: diffs[i].category, fromIndex: i, to: diffs[j].category, toIndex: j, amount: high });
+                    }
+                }
+            }
+        }
+
+        const nMatches = amountMatch.length;
+
+        if(nMatches == 2){
+            return recommended;
+        } else if(nMatches == 1){
+            let i = 0, j = diffsLength - 1;
+            diffs[amountMatch[0].fromIndex].value = 0;
+            diffs[amountMatch[0].toIndex].value = 0;
+            while(i < j){
+                const low = parseFloat(diffs[i].value), high = parseFloat(diffs[j].value);
+                
+                if(missing == 0 && left == 0){
+                    if(Math.abs(low) < high ){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            missing = high + low;
+                            i++;
+                        }
+                    } else if(Math.abs(low) > high ){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            left = Math.abs(low) - high;
+                            j--;
+                        }
+                    } else{
+                        i++;
+                        j--;
+                    }
+                } else if(missing > 0){
+                    if(Math.abs(low) < missing){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            missing += low;
+                            i++;
+                        }
+                    } else if(Math.abs(low) > missing ){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            left = Math.abs(low) - missing;
+                            missing = 0;
+                            j--;
+                        }
+                    } else{
+                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing = 0;
+                        left = 0;
+                        i++;
+                        j--;
+                    }
+                } else if(left > 0){
+                    if(left < high){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            missing = high - left;
+                            left = 0;
+                            i++;
+                        }
+                    } else if(left > high ){
+                        if(low == 0){
+                            i++;
+                        } else if(high == 0){
+                            j--;
+                        } else{
+                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            left -= high;
+                            j--;
+                        }
+                    } else{
+                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing = 0;
+                        left = 0;
+                        i++;
+                        j--;
+                    }
+                }
+            }
+        } else if(nMatches == 0){
+            let i = 0, j = diffsLength - 1;
+            while(i < j){
+                const low = parseFloat(diffs[i].value), high = parseFloat(diffs[j].value);
+                
+                if(missing == 0 && left == 0){
+                    if(Math.abs(low) < high ){
+                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing = high + low;
+                        i++;
+                    } else if(Math.abs(low) > high ){
+                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        left = Math.abs(low) - high;
+                        j--;
+                    } else{
+                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        i++;
+                        j--;
+                    }
+                } else if(missing > 0){
+                    if(Math.abs(low) < missing){
+                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing += low;
+                        i++;
+                    } else if(Math.abs(low) > missing ){
+                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        left = Math.abs(low) - missing;
+                        missing = 0;
+                        j--;
+                    } else{
+                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing = 0;
+                        i++;
+                        j--; 
+                    }
+                } else if(left > 0){
+                    if(left < high){
+                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        missing = high - left;
+                        left = 0;
+                        i++;
+                    } else if(left > high ){
+                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        left -= high;
+                        j--;
+                    } else{
+                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        left = 0;
+                        i++;
+                        j--; 
+                    }
+                }
+            }
+        }
+
+        return recommended === '' ? 'No transfers needed.' : recommended;
+    }
+
     rebalance = () => {
         const risk = this.props.risk;
         const level = this.props.data[risk-1];
@@ -52,7 +229,21 @@ class CalculatorTable extends Component {
         foreign.difference = (foreign.new-foreign.current).toFixed(2);
         smallCap.difference = (smallCap.new-smallCap.current).toFixed(2);
 
-        this.props.dispatch({ type: REBALANCE, bonds, largeCap, midCap, foreign, smallCap, recommended: 'LISTO' });
+        const diffs = [
+            { category: 'Bonds', value: bonds.difference },
+            { category: 'Large Cap', value: largeCap.difference },
+            { category: 'Mid Cap', value: midCap.difference },
+            { category: 'Foreign', value: foreign.difference },
+            { category: 'Small Cap', value: smallCap.difference }
+        ];
+
+        diffs.sort(function (a, b) {
+            return a.value - b.value;
+        });
+
+        let recommended = this.recordTransfers(diffs);
+
+        this.props.dispatch({ type: REBALANCE, bonds, largeCap, midCap, foreign, smallCap, recommended });
     }
 
     render() {

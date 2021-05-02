@@ -6,4 +6,5 @@ export const SET_MID_CAP = "SET_MID_CAP";
 export const SET_FOREIGN = "SET_FOREIGN";
 export const SET_SMALL_CAP = "SET_SMALL_CAP";
 export const CLEAR_VALUES = "CLEAR_VALUES";
+export const CLEAR_REBALANCED_VALUES = "CLEAR_REBALANCED_VALUES";
 export const REBALANCE = "REBALANCE";

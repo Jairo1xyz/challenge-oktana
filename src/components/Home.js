@@ -6,7 +6,7 @@ import history from '../extras/history';
 import { connect } from 'react-redux';
 
 import Container from "./Container";
-import { SET } from '../extras/actions';
+import { SET, CLEAR_REBALANCED_VALUES } from '../extras/actions';
 
 class Home extends Component {
 
@@ -20,7 +20,10 @@ class Home extends Component {
                 color={Colors.SECONDARY} 
                 isHollow={ this.props.risk === i ? false : true } 
                 key={i} 
-                onClick={() => this.props.dispatch({ type: SET, risk: i })}
+                onClick={() => {
+                    this.props.dispatch({ type: SET, risk: i });
+                    this.props.dispatch({ type: CLEAR_REBALANCED_VALUES });
+                }}
                 style = {buttonStyles}>
                     {i}
                 </Button>
