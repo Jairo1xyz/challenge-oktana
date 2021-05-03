@@ -10,31 +10,14 @@ import CalculatorTable from './CalculatorTable';
 class Calculator extends Component {
 
     render() {
-
         const risk = this.props.risk;
         if( risk === 0 ){
-            return <div>
-                <div style = {backButtonStyles}>
-                    <Button 
-                    color={Colors.SUCCESS} 
-                    onClick={() => history.push('/')}>
-                        Go back to set a risk level
-                    </Button>
-                </div>
-                <div style = {labelStyles}>Risk level not setted. Set a risk level first.</div>
-            </div> 
+            return <div style = {labelStyles}>Risk level not setted. Go home and set a risk level first.</div>
         }
         else{
             const level = risk === 0 ? null : this.props.data[risk-1];
 
             return <div> 
-                <div style = {backButtonStyles}>
-                    <Button 
-                    color={Colors.SUCCESS} 
-                    onClick={() => history.push('/')}>
-                        Go back
-                    </Button>
-                </div>
                 <div style = {labelStyles}>Personalized Portfolio</div>
                 <div style = {subLabelStyles}>Risk Level { risk }</div>
                 <div style = {basicStyles}>
@@ -70,11 +53,6 @@ function mapStateToProps(state) {
     return {
         ...state
     };
-}
-
-const backButtonStyles = {
-    display: 'flex',
-    justifyContent: 'right'
 }
 
 const labelStyles = {

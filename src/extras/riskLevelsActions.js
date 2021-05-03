@@ -14,9 +14,6 @@ export const fetchLevelsFailure = error => ({
 export function fetchRiskLevels(){
     return async dispatch => {
         try{
-          // This code is for testing Error Display message
-          //throw new Error('Whoops!');
-
           const res = await fetch('/data.json', {
             headers : { 
                 'Content-Type': 'application/json',
