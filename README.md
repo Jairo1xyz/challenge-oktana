@@ -20,15 +20,11 @@ And again:
 
 ### `npm install`
 
-Then if you are in Mac or Linux run:
+Then run:
 
 ### `cd ..`
 
-If you are in Windows run:
-
-### `cd..`
-
-Then comes the time to execute the project.
+Finally comes the time to execute the project.
 
 ## Execution
 
@@ -55,3 +51,9 @@ And then it's time to use the app.
 5) Clic Rebalance.
 
 6) Optional: Clic in the house icon to go back and repeat from step 1.
+
+## Video
+
+You can see all of these instructions in video in the following link:
+
+[https://youtu.be/1fPvRABoH8E](https://youtu.be/1fPvRABoH8E)
