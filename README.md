@@ -1,10 +1,10 @@
 # Challenge
 
-This is a challenge solved by me for an Oktana project.\
+This is a challenge solved by me for an Oktana project.
 
 ## Installation
 
-Open a terminal or console and navigate to directory you want to clone the project and run:
+Open a terminal or console and navigate to the directory where you want to clone the project and run:
 
 ### `git clone https://github.com/Jairo1xyz/challenge-oktana.git`
 
@@ -36,22 +36,22 @@ To run the project execute:
 
 ### `npm start`
 
-Wait for the system to build and run the project.\ Then in your browser open the URL:
+Wait for the system to build and run the project. Then in your browser open the URL:
 
 [http://localhost:5000](http://localhost:5000)
 
-And then it's time to use the app.\
+And then it's time to use the app.
 
 ## Use of the app
 
-1) Choose a risk level (Buttons numerated from 1 to 10).\
+1) Choose a risk level (Buttons numerated from 1 to 10).
 
-2) Optional: alternate between the Donut chart and the table clicking the repective "See..." button.\
+2) Optional: alternate between the Donut chart and the table clicking the repective "See..." button.
 
-3) Click Continue.\
+3) Click Continue.
 
-4) Fill the amounts you currently have on each investment category.\
+4) Fill the amounts you currently have on each investment category.
 
-5) Clic Rebalance.\
+5) Clic Rebalance.
 
-6) Optional: Clic on the house image to go back and repeat from step 1.\
+6) Optional: Clic in the house icon to go back and repeat from step 1.
