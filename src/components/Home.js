@@ -50,7 +50,7 @@ class Home extends Component {
                     if(this.props.risk !== 0) 
                         history.push('/Calculator')
                 }}
-                style = {buttonStyles}>
+                style = {buttonContinueStyles}>
                     Continue
                 </Button>
             </div>
@@ -71,11 +71,17 @@ const buttonStyles = {
     margin: '5px'
 }
 
+const buttonContinueStyles = {
+    marginTop: '5px',
+    marginBottom: '15px'
+}
+
 const labelStyles = {
     display: 'flex',
     justifyContent: 'center',
     fontSize: '20px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: '10px'
 }
 
 const basicStyles = {

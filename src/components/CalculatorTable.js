@@ -24,7 +24,7 @@ class CalculatorTable extends Component {
                         }
                     }
                     if(!prevMatched){
-                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+Math.abs(low).toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         amountMatch.push({ from: diffs[i].category, fromIndex: i, to: diffs[j].category, toIndex: j, amount: high });
                     }
                 }
@@ -49,7 +49,7 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+Math.abs(low).toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             missing = high + low;
                             i++;
                         }
@@ -59,7 +59,7 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+high.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             left = Math.abs(low) - high;
                             j--;
                         }
@@ -74,7 +74,7 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+Math.abs(low).toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             missing += low;
                             i++;
                         }
@@ -84,13 +84,13 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+missing.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             left = Math.abs(low) - missing;
                             missing = 0;
                             j--;
                         }
                     } else{
-                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+missing.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing = 0;
                         left = 0;
                         i++;
@@ -103,7 +103,7 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+left.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             missing = high - left;
                             left = 0;
                             i++;
@@ -114,12 +114,12 @@ class CalculatorTable extends Component {
                         } else if(high == 0){
                             j--;
                         } else{
-                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+high.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                             left -= high;
                             j--;
                         }
                     } else{
-                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+left.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing = 0;
                         left = 0;
                         i++;
@@ -134,48 +134,48 @@ class CalculatorTable extends Component {
                 
                 if(missing == 0 && left == 0){
                     if(Math.abs(low) < high ){
-                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+Math.abs(low).toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing = high + low;
                         i++;
                     } else if(Math.abs(low) > high ){
-                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+high.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         left = Math.abs(low) - high;
                         j--;
                     } else{
                         if(high != 0){
-                            recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                            recommended+='* Transfer $'+high.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         }
                         i++;
                         j--;
                     }
                 } else if(missing > 0){
                     if(Math.abs(low) < missing){
-                        recommended+='* Transfer $'+Math.abs(low)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+Math.abs(low).toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing += low;
                         i++;
                     } else if(Math.abs(low) > missing ){
-                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+missing.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         left = Math.abs(low) - missing;
                         missing = 0;
                         j--;
                     } else{
-                        recommended+='* Transfer $'+missing+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+missing.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing = 0;
                         i++;
                         j--; 
                     }
                 } else if(left > 0){
                     if(left < high){
-                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+left.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         missing = high - left;
                         left = 0;
                         i++;
                     } else if(left > high ){
-                        recommended+='* Transfer $'+high+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+high.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         left -= high;
                         j--;
                     } else{
-                        recommended+='* Transfer $'+left+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
+                        recommended+='* Transfer $'+left.toFixed(2)+' from '+diffs[i].category+' to '+diffs[j].category+'.\n';
                         left = 0;
                         i++;
                         j--; 
